@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(132, 0, 158);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .circle {
+            width: 500px;
+            height: 500px;
+            border: 10px solid black;
+            border-radius: 50%;
+            position: relative;
+            background-color: aliceblue;
+        }
+
+        .hour {
+            height: 6px;
+            width: 140px;
+            background-color: black;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 5px;
+            border: 2px solid plum;
+            transform-origin: left center;
+            transform: rotate(-90deg);
+        }
+
+        .min {
+            height: 6px;
+            width: 190px;
+            background-color: black;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 5px;
+            border: 2px solid plum;
+            transform-origin: left center;
+            transform: rotate(-90deg);
+        }
+
+        .sec {
+            height: 6px;
+            width: 240px;
+            background-color: black;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 5px;
+            border: 2px solid plum;
+            transform-origin: left center;
+            transform: rotate(-90deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="circle">
+        <div class="hour"></div>
+        <div class="min"></div>
+        <div class="sec"></div>
+    </div>
+
+    <script>
+        const hour = document.querySelector('.hour');
+        const min = document.querySelector('.min');
+        const sec = document.querySelector('.sec');
+
+        setInterval(clock ,1000);
+
+        function clock() {
+            const i = new Date();
+            const h = i.getHours();
+            const m = i.getMinutes();
+            const s = i.getSeconds();
+
+            hour.style.rotate = `${(h/60) * 360}deg`;
+            min.style.rotate = `${(m/60) * 360}deg`;
+            sec.style.rotate = `${(s/60) * 360}deg`;
+        }
+    </script>
+</body>
+</html>

@@ -7,16 +7,19 @@
     <style>
         html {
             background-image: url('pic/day1-bg.jpg');
-            box-sizing: border-box;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        .container {    
             width: 100%;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .container {    
-            display: flex;
             gap: 20px;
         }
 
@@ -35,28 +38,87 @@
             flex-direction: column;
         }
         
-        P {
+        span {
             color: rgb(255, 208, 0);
             font-size: 12px;
             margin: 0;
+        }
+
+        .play {
+            transition: 0.2s;
+            transform: scale(1.1);
+            box-shadow: 0px 0px 10px rgb(255, 213, 0);
+            border: solid 5px rgb(255, 213, 0);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <button class="key-button">A<p>CLIP</p></button>
-        <button class="key-button">S<p>HIHAT</p></button>
-        <button class="key-button">D<p>KICK</p></button>
-        <button class="key-button">F<p>OPENHAT</p></button>
-        <button class="key-button">G<p>BOOM</p></button>
-        <button class="key-button">H<p>RIDE</p></button>
-        <button class="key-button">J<p>SNARE</p></button>
-        <button class="key-button">K<p>TOP</p></button>
-        <button class="key-button">L<p>TINK</p></button>
+        <div data-key="65" class="key-button">
+            <kbd>A</kbd>
+            <span>CLIspan</span>
+        </div>
+        <div data-key="83" class="key-button">
+            <kbd>S</kbd>
+            <span>HIHAT</span>
+        </div>
+        <div data-key="68" class="key-button">
+            <kbd>D</kbd>
+            <span>KICK</span>
+        </div>
+        <div data-key="70" class="key-button">
+            <kbd>F</kbd>
+            <span>OspanENHAT</span>
+        </div>
+        <div data-key="71" class="key-button">
+            <kbd>G</kbd>
+            <span>BOOM</span>
+        </div>
+        <div data-key="72" class="key-button">
+            <kbd>H</kbd>
+            <span>RIDE</span>
+        </div>
+        <div data-key="74" class="key-button">
+            <kbd>J</kbd>
+            <span>SNARE</span>
+        </div>
+        <div data-key="75" class="key-button">
+            <kbd>K</kbd>
+            <span>TOspan</span>
+        </div>
+        <div data-key="76" class="key-button">
+            <kbd>L</kbd>
+            <span>TINK</span>
+        </div>
     </div>
+    <audio data-key="65" src="sounds/clap.wav"></audio>
+    <audio data-key="83" src="sounds/hihat.wav"></audio>
+    <audio data-key="68" src="sounds/kick.wav"></audio>
+    <audio data-key="70" src="sounds/openhat.wav"></audio>
+    <audio data-key="71" src="sounds/boom.wav"></audio>
+    <audio data-key="72" src="sounds/ride.wav"></audio>
+    <audio data-key="74" src="sounds/snare.wav"></audio>
+    <audio data-key="75" src="sounds/tom.wav"></audio>
+    <audio data-key="76" src="sounds/tink.wav"></audio>
 
     <script>
+        function playSound(e) {
+            const key = document.querySelector(`div[data-key = "${e.keyCode}"]`);
+            const audio = document.querySelector(`audio[data-key = "${e.keyCode}"]`);
+            console.log(key);
+            audio.currentTime = 0;
+            audio.play();
+            key.classList.add('play');
+        }
 
+        function removeTransform(e) {
+            console.log(e);
+            e.target.classList.remove('play');
+        }
+
+        const keyGroup = document.querySelectorAll('.key-button');
+        keyGroup.forEach(key => key.addEventListener('transitionend' ,removeTransform))
+        window.addEventListener('keydown' ,playSound);
     </script>
 </body>
 </html>
