@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Key Detection</title>
+    <script type="text/javascript" src="./cornify.js"></script>
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
+    <script>
+      const code = [];
+      const secretCode = 'shane';
+
+      window.addEventListener('keyup' ,(e) => {
+        code.push(e.key);
+        // console.log(code);
+        // console.log(-secretCode.length - 1 ,code.length - secretCode.length);7
+        code.splice(-secretCode.length - 1 ,code.length - secretCode.length);
+  
+        if (code.join('').includes(secretCode)) {
+          alert('bingo')
+          cornify_add();
+        }
+        // console.log(code);
+      })
+
+    </script>
+  </body>
+</html>
