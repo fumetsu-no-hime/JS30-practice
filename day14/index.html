@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+<body>
+
+  <script>
+    // start with strings, numbers and booleans
+
+    // Let's say we have an array
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+
+    // and we want to make a copy of it.
+    const playersCopy = players;
+
+    // You might think we can just do something like this:
+    // playersCopy[2] = 'shane';
+
+    // however what happens when we update that array?
+
+    // now here is the problem!
+
+    // oh no - we have edited the original array too!
+
+    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
+
+    // So, how do we fix this? We take a copy instead!
+    const playersCopy2 = players.slice();
+
+    // one way
+
+    // or create a new array and concat the old one in
+    // array.concat()可以融合陣列，這邊用空陣列融合players做出深複製的效果。
+    const playersCopy3 = [].concat(players);
+    playersCopy3[2] = 'shane';
+
+
+    // or use the new ES6 Spread
+    // 運用spread的方式複製，[...players]
+    // const playersCopy4 = [];
+    // playersCopy4.push(...players);
+    playersCopy4 = [...players];
+    playersCopy4[0] = 'test4';
+    console.log(players ,playersCopy4);
+
+    // 對players陣列使用array.from()也有深複製的效果。
+    const playersCopy5 = Array.from(players);
+    playersCopy5[1] = 'test5'
+    console.log(playersCopy5);
+    
+    // now when we update it, the original one isn't changed
+
+    // The same thing goes for objects, let's say we have a person object
+
+    // with Objects
+    const person = {
+        name: 'shane',
+        age: '25'
+    }
+
+    // and think we make a copy:
+    // 淺複製
+    const person2 = person;
+    // person2.age = '99';
+    console.log(person);
+
+    // how do we take a copy instead?
+    const person3 =  Object.assign({}, person, {number: '15', age: '99'});
+    console.log(person3);
+
+    // We will hopefully soon see the object ...spread
+    // 物件也能用spread深複製。
+    const person4 = {...person};
+    person4.name = 'baka';
+    console.log(person4);
+
+    // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+    const shane = {
+        name: 'shane',
+        age: '25',
+        social: {
+          ig: '@shane',
+          fb: 'shane.player'
+        }
+    }
+    console.log(shane);
+    // 深層複製(deep clone)需要使用其他的替代方案，因為 Object.assign() 僅複製屬性值。若來源物件的值參照到一個子物件，它只會複製該子物件的參照。
+    const shane2 = Object.assign({}, shane);
+    // shane2.social.ig = '@shane2';
+    console.log(shane2);
+
+    // 深複製
+    // JSON.parse()
+    // JSON.stringify()
+    const shane3 = JSON.parse(JSON.stringify(shane));
+    shane3.social.ig = '@shane3';
+    console.log(shane3);
+
+    const obj = JSON.parse('{"1": 1, "2": 2, "3": {"4": 4, "5": {"6": 6}}}', function (k, v) {
+      console.log(k); // log the current property name, the last is "".
+      return v; // return the unchanged property value.
+    });
+
+    console.log(obj);
+
+  </script>
+
+</body>
+</html>
